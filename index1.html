@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Employee Details</title>
+  <style>
+    body { 
+      font-family: Arial;
+       padding: 20px;
+       background-color: rgba(218, 11, 11, 0.877) ;
+       background-color:top ;
+       background-image: url(motherson.jpg);
+       background-repeat: no-repeat;
+       background-position: top ;
+        margin: 30px;
+        background-attachment: fixed;
+        font-size: x-large;
+       }
+    input {
+       padding: 16px;
+       margin-bottom: 20px;
+       width: 300px; 
+      }
+    ul {
+       list-style-type: none; 
+       padding-top: 20px;
+      }
+    li {
+       padding: 30px;
+       margin-bottom: 30px;
+       background:rgb(235, 214, 214);
+       border-radius: 10px;
+       border-color: black;
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       opacity: 0.7;
+       }
+    button { 
+      background: rgb(77, 5, 5);
+      color:aliceblue;
+      font-size: large;
+      border: 15%;
+      padding: 5px 10px;
+      cursor: pointer; 
+      border-radius: 5px;
+      width: 100px; 
+      height: 45px;
+     }
+   .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      color: rgb(221, 11, 11);
+      padding: 15px;
+      margin: 85px; 
+      
+  }  
+
+      .logout {
+      background-color: rgb(239, 241, 239);
+      color: rgb(170, 4, 4);
+      padding: 20px 20px;
+      right: 5%;
+      top: 10%;
+      position: absolute;
+      border: 50px;
+      cursor: pointer;
+      border-radius: 30px;
+      width: 150px;
+      height: 50px;
+      } 
+ </style>
+</head>
+<body>
+  <h2> User List</h2>
+  
+  <input type="text" id="search" placeholder="Search user...">
+  <hr>
+  <ul id="userList"></ul>
+  <div class="main">
+      <div class="topbar">
+        <button class="logout">Logout </button>
+      </div>
+      <div class= "border">
+      </div>
+  <script>
+    const users = [
+      "Pandi", "Vishva", "Padma", "Dinesh", "Eshwar", 
+      "Farhan", "Gopal", "Hari", "Indhu", "Jeni","Babu"
+    ];
+
+    const userPages = {
+      "Pandi": "home1.html",
+      "Vishva": "home.html",
+      "Padma": "home2.html",
+      "Dinesh": "home3.html",
+      "Eshwar": "home4.html",
+      "Farhan": "home5.html",
+      "Gopal": "home6.html",
+      "Hari": "home7.html",
+      "Indhu": "home8.html",
+      "Jeni": "home9.html",
+      "Babu": "home10.html",
+    };
+
+    const search = document.getElementById("search");
+    const userList = document.getElementById("userList");
+    
+    function displayUsers(filter = "") {
+      userList.innerHTML = "";
+      users
+        .filter(user => user.toLowerCase().includes(filter.toLowerCase()))
+        .forEach((user, index) => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <div onclick="goToPage('${userPages[user]}')" style="cursor:pointer;display:inline-block;width:200px;">${user}</div>
+            <button onclick="deleteUser(${index}, '${filter}')">Delete</button>
+          `;
+          userList.appendChild(li);
+        });
+    }
+
+    function goToPage(page) {
+      window.location.href = page;
+    }
+
+    function deleteUser(index, filter) {
+      users.splice(index, 1);
+      displayUsers(filter);
+    }
+
+    search.addEventListener("input", () => {
+      displayUsers(search.value);
+      
+    });
+ document.querySelector('.logout').addEventListener('click', function () {
+      if (confirm("Are you sure you want to logout?")) {
+        window.location.href = 'login.html'; 
+      }
+    });
+
+    displayUsers();
+  </script>
+</body>
+</html>
