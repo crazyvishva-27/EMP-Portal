@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login Page</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="login-box">
+    <h2>Login</h2>
+    <form onsubmit="return loginadmin()">
+      <input type="text" id="admin_username" placeholder="Username" required><br>
+      <input type="password" id="admin_password" placeholder="Password" required><br>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+<script>
+  function loginadmin() {
+    const username = document.getElementById("admin_username").value.trim();
+    const password = document.getElementById("admin_password").value.trim();
+
+    const admins= JSON.parse(localStorage.getItem("adminCredentials")) || [];
+
+    const admin= admins.find(
+      u => u.username === username && u.password === password
+    );
+
+     if (admin) {
+       alert("Login Successful!");
+       window.location.href="index1.html"
+    } else {
+      alert("Incorrect username or password");
+    }
+
+    return false;
+  }
+</script>
+</body>
+</html> 
